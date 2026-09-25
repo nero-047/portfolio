@@ -1,0 +1,58 @@
+<svg viewBox="0 0 960 720" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="">
+  <defs>
+    <linearGradient id="site-hero" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#eef1e4"/>
+      <stop offset="1" stop-color="#dbe3cb"/>
+    </linearGradient>
+    <linearGradient id="site-photo" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#88a862"/>
+      <stop offset="1" stop-color="#5c7d3f"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="720" fill="url(#site-hero)"/>
+
+  <!-- browser chrome -->
+  <rect x="30" y="30" width="900" height="52" fill="#f7f5ec" stroke="#d7d2c4"/>
+  <circle cx="58" cy="56" r="6" fill="#d7d2c4"/>
+  <circle cx="80" cy="56" r="6" fill="#d7d2c4"/>
+  <circle cx="102" cy="56" r="6" fill="#d7d2c4"/>
+  <rect x="330" y="46" width="300" height="20" rx="10" fill="#eeeae0" stroke="#d7d2c4"/>
+  <text x="480" y="60" text-anchor="middle" fill="#7a765f" font-family="ui-monospace,Menlo,monospace" font-size="10">navfarm.com</text>
+
+  <!-- nav -->
+  <g transform="translate(30,82)" fill="#2c3320">
+    <text x="30" y="34" font-family="system-ui,sans-serif" font-size="18" font-weight="700">NAVFARM</text>
+    <g font-family="system-ui,sans-serif" font-size="13" fill="#4c5640">
+      <text x="560" y="32">Products</text>
+      <text x="655" y="32">About</text>
+      <text x="725" y="32">Resources</text>
+      <text x="820" y="32">Contact</text>
+    </g>
+    <circle cx="875" cy="27" r="9" fill="none" stroke="#4c5640" stroke-width="1.4"/>
+  </g>
+  <line x1="30" y1="140" x2="930" y2="140" stroke="#d7d2c4"/>
+
+  <!-- hero content -->
+  <g transform="translate(60,180)">
+    <text x="0" y="50" fill="#232a18" font-family="system-ui,sans-serif" font-size="40" font-weight="700">Modern farming</text>
+    <text x="0" y="98" fill="#232a18" font-family="system-ui,sans-serif" font-size="40" font-weight="700">for a brighter tomorrow</text>
+    <text x="0" y="140" fill="#5c6650" font-family="system-ui,sans-serif" font-size="15">Technology for people who grow progress.</text>
+    <rect x="0" y="168" width="132" height="40" rx="20" fill="#3f5a2a"/>
+    <text x="66" y="193" text-anchor="middle" fill="#f4f1e6" font-family="system-ui,sans-serif" font-size="13">Learn more</text>
+
+    <g transform="translate(0,250)" font-family="system-ui,sans-serif" font-size="13" fill="#3a4230">
+      <text x="0" y="0">Better tools</text>
+      <text x="0" y="26">Healthier harvests</text>
+      <text x="0" y="52">Brighter communities</text>
+    </g>
+  </g>
+
+  <!-- photo block -->
+  <rect x="520" y="180" width="360" height="420" rx="10" fill="url(#site-photo)"/>
+  <g opacity="0.5" stroke="#f4f1e6" stroke-width="2">
+    <line x1="520" y1="280" x2="880" y2="250"/>
+    <line x1="520" y1="360" x2="880" y2="330"/>
+    <line x1="520" y1="440" x2="880" y2="410"/>
+    <line x1="520" y1="520" x2="880" y2="490"/>
+  </g>
+</svg>

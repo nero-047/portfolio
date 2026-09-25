@@ -1,0 +1,28 @@
+{
+  "name": "nero",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "content:generate": "node scripts/generate-content.mjs",
+    "dev": "npm run content:generate && nuxt dev",
+    "build": "npm run content:generate && nuxt generate",
+    "generate": "npm run build",
+    "preview": "npx wrangler pages dev .output/public",
+    "deploy": "npm run build && npx wrangler pages deploy .output/public --project-name rishigurung",
+    "postinstall": "node scripts/generate-content.mjs && nuxt prepare"
+  },
+  "dependencies": {
+    "gray-matter": "^4.0.3",
+    "markdown-it": "^15.0.2",
+    "nuxt": "^4.5.2",
+    "three": "^0.186.0",
+    "vue": "^3.5.42",
+    "vue-router": "^5.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.2",
+    "@types/three": "^0.186.0",
+    "typescript": "~5.9",
+    "vue-tsc": "^3.3.11"
+  }
+}

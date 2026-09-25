@@ -1,0 +1,80 @@
+<svg viewBox="0 0 960 720" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="">
+  <defs>
+    <linearGradient id="navcrm-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#161616"/>
+      <stop offset="1" stop-color="#0a0a0a"/>
+    </linearGradient>
+    <linearGradient id="navcrm-chart" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#d63232" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#d63232" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="720" fill="url(#navcrm-bg)"/>
+
+  <!-- desktop window -->
+  <g transform="translate(40,60)">
+    <rect width="700" height="440" rx="10" fill="#141414" stroke="#2a2a2a"/>
+    <rect width="700" height="34" rx="10" fill="#1b1b1b"/>
+    <circle cx="20" cy="17" r="4.5" fill="#3a3a3a"/>
+    <circle cx="36" cy="17" r="4.5" fill="#3a3a3a"/>
+    <circle cx="52" cy="17" r="4.5" fill="#3a3a3a"/>
+    <text x="350" y="21" fill="#6b6b6b" font-family="ui-monospace,Menlo,monospace" font-size="11" text-anchor="middle" letter-spacing="1">NAVCRM</text>
+
+    <!-- sidebar -->
+    <rect x="0" y="34" width="150" height="406" fill="#111111"/>
+    <g fill="#39393c">
+      <rect x="22" y="60" width="106" height="10" rx="3" fill="#e6e2d8" opacity="0.9"/>
+      <rect x="22" y="96" width="90" height="7" rx="3"/>
+      <rect x="22" y="120" width="90" height="7" rx="3"/>
+      <rect x="22" y="144" width="90" height="7" rx="3" fill="#d63232" opacity="0.7"/>
+      <rect x="22" y="168" width="90" height="7" rx="3"/>
+      <rect x="22" y="192" width="90" height="7" rx="3"/>
+      <rect x="22" y="216" width="90" height="7" rx="3"/>
+    </g>
+
+    <!-- top stat cards -->
+    <g>
+      <rect x="168" y="52" width="150" height="70" rx="8" fill="#1a1a1a" stroke="#2a2a2a"/>
+      <text x="184" y="80" fill="#8a8a8a" font-family="ui-monospace,Menlo,monospace" font-size="9" letter-spacing="1">DEALS</text>
+      <text x="184" y="104" fill="#f1efe9" font-family="ui-monospace,Menlo,monospace" font-size="20" font-weight="600">248</text>
+
+      <rect x="330" y="52" width="150" height="70" rx="8" fill="#1a1a1a" stroke="#2a2a2a"/>
+      <text x="346" y="80" fill="#8a8a8a" font-family="ui-monospace,Menlo,monospace" font-size="9" letter-spacing="1">TENANTS</text>
+      <text x="346" y="104" fill="#f1efe9" font-family="ui-monospace,Menlo,monospace" font-size="20" font-weight="600">32</text>
+
+      <rect x="492" y="52" width="176" height="70" rx="8" fill="#1a1a1a" stroke="#2a2a2a"/>
+      <text x="508" y="80" fill="#8a8a8a" font-family="ui-monospace,Menlo,monospace" font-size="9" letter-spacing="1">OPEN ISSUES</text>
+      <text x="508" y="104" fill="#f1efe9" font-family="ui-monospace,Menlo,monospace" font-size="20" font-weight="600">12</text>
+    </g>
+
+    <!-- chart card -->
+    <rect x="168" y="138" width="500" height="150" rx="8" fill="#1a1a1a" stroke="#2a2a2a"/>
+    <polyline points="188,250 240,230 292,244 344,196 396,214 448,176 500,192 552,158 604,172 640,150" fill="none" stroke="#d63232" stroke-width="2.4" stroke-linecap="round"/>
+    <polygon points="188,250 240,230 292,244 344,196 396,214 448,176 500,192 552,158 604,172 640,150 640,270 188,270" fill="url(#navcrm-chart)"/>
+
+    <!-- table rows -->
+    <g fill="#2b2b2b">
+      <rect x="168" y="304" width="500" height="34" rx="6"/>
+      <rect x="168" y="344" width="500" height="34" rx="6" fill="#1a1a1a" stroke="#242424"/>
+      <rect x="168" y="384" width="500" height="34" rx="6" fill="#1a1a1a" stroke="#242424"/>
+    </g>
+    <g fill="#8a8a8a" font-family="ui-monospace,Menlo,monospace" font-size="9" letter-spacing="0.6">
+      <text x="184" y="325">COMPANY</text>
+      <text x="420" y="325">STAGE</text>
+      <text x="560" y="325">OWNER</text>
+    </g>
+  </g>
+
+  <!-- phone mockup -->
+  <g transform="translate(770,120)">
+    <rect width="150" height="320" rx="20" fill="#141414" stroke="#2a2a2a" stroke-width="2"/>
+    <rect x="10" y="14" width="130" height="292" rx="6" fill="#101010"/>
+    <text x="75" y="40" fill="#e6e2d8" font-family="ui-monospace,Menlo,monospace" font-size="11" text-anchor="middle">Good morning</text>
+    <rect x="20" y="56" width="110" height="46" rx="7" fill="#1c1c1c"/>
+    <rect x="20" y="110" width="110" height="46" rx="7" fill="#1c1c1c"/>
+    <rect x="20" y="164" width="110" height="46" rx="7" fill="#1c1c1c"/>
+    <circle cx="43" cy="79" r="9" fill="#d63232" opacity="0.55"/>
+    <circle cx="43" cy="133" r="9" fill="#4a4a4a"/>
+    <circle cx="43" cy="187" r="9" fill="#4a4a4a"/>
+  </g>
+</svg>
