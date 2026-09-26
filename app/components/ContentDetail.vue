@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { contentIndex, contentLoaders, type CollectionName } from '~/generated/content-index.generated'
+import type { DiagramId } from '~/config/work'
 import { formatDate } from '~/utils/format'
 import { breadcrumbLd, entryLd } from '~/composables/usePageSeo'
 
@@ -8,7 +9,8 @@ const route = useRoute()
 const slug = String(route.params.slug)
 const base = `/${props.collection}`
 
-const meta = contentIndex[props.collection].find((e) => e.slug === slug)
+const entries = contentIndex[props.collection]
+const meta = entries.find((e) => e.slug === slug)
 const loader = meta ? contentLoaders[props.collection][slug] : undefined
 if (!meta || !loader) {
   throw createError({ statusCode: 404, statusMessage: 'Page not found', fatal: true })
@@ -33,12 +35,19 @@ const facts = computed(() => {
   const m = meta!
   return [
     m.role && ['Role', m.role],
+    m.context && ['Context', m.context],
+    m.year && ['Year', m.year],
     m.stack?.length && ['Stack', m.stack.join(', ')],
     m.status && ['Status', m.status],
-    m.date && ['Date', formatDate(m.date)],
-    m.updated && ['Updated', formatDate(m.updated)],
-    m.tags?.length && ['Tags', m.tags.join(' / ')]
+    m.updated && ['Updated', formatDate(m.updated)]
   ].filter(Boolean) as [string, string][]
+})
+
+/** Wraps around, so the last entry still offers somewhere to go. */
+const next = computed(() => {
+  if (entries.length < 2) return undefined
+  const i = entries.findIndex((e) => e.slug === slug)
+  return entries[(i + 1) % entries.length]
 })
 </script>
 
@@ -57,12 +66,22 @@ const facts = computed(() => {
     </header>
     <div class="wrap">
       <div v-if="meta.cover" class="cover"><img :src="meta.cover" alt="" loading="lazy" decoding="async"></div>
+      <!-- Structure, not a screenshot: the lead visual for work that has no publishable interface. -->
+      <div v-else-if="meta.diagram" class="detail__figure">
+        <ProjectDiagram :id="(meta.diagram as DiagramId)" />
+      </div>
       <div class="detail__body">
         <ProseContent v-if="body" :html="body.html" />
         <div v-if="meta.links" class="detail__links">
           <a v-for="(href, label) in meta.links" :key="label" class="link" :href="href" rel="noopener">{{ label }} ↗</a>
         </div>
       </div>
+      <nav v-if="next" class="detail__next" :aria-label="`Next in ${backLabel}`">
+        <NuxtLink :to="`${base}/${next.slug}`">
+          <span class="label">Next</span>
+          <span class="detail__next-title">{{ next.title }}</span>
+        </NuxtLink>
+      </nav>
     </div>
   </article>
 </template>

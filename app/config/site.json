@@ -1,0 +1,4 @@
+{
+  "_comment": "Single source of truth for the production origin. Read by app/config/site.ts (site.url) and by scripts/generate-content.mjs (sitemap + robots). Change it here only.",
+  "origin": "https://nero.is-a.dev"
+}

@@ -2,8 +2,8 @@
   <ContentIndex
     collection="work"
     title="Work"
-    intro="Software I’ve built."
-    seo-description="Software projects I’ve built."
-    empty-message="I’m still writing up my projects. They’ll appear here."
+    intro="Professional work and personal projects, written up in more depth than the homepage allows."
+    seo-description="Case studies of software Rishi Gurung has built, maintained and extended — backend, web and mobile."
+    empty-message="I’m still writing these up. They’ll appear here."
   />
 </template>

@@ -1,10 +1,10 @@
-import { site } from '~/config/site'
+import { site, social } from '~/config/site'
 
 interface PageSeo {
   title: string
   description: string
   path: string
-  type?: 'website' | 'article'
+  type?: 'website' | 'article' | 'profile'
   /** Suffix the site name (default true). Home passes false. */
   suffix?: boolean
   published?: string
@@ -19,6 +19,7 @@ const ld = (obj: unknown) => JSON.stringify(obj).replace(/</g, '\\u003c')
 export function usePageSeo({ title, description, path, type = 'website', suffix = true, published, modified, jsonLd }: PageSeo) {
   const fullTitle = suffix ? `${title} — ${site.name}` : title
   const url = abs(path)
+  const image = site.url + social.image
   useSeoMeta({
     title: fullTitle,
     description,
@@ -28,9 +29,16 @@ export function usePageSeo({ title, description, path, type = 'website', suffix 
     ogType: type,
     ogSiteName: site.name,
     ogLocale: 'en_US',
-    twitterCard: 'summary',
+    ogImage: image,
+    ogImageWidth: String(social.width),
+    ogImageHeight: String(social.height),
+    ogImageAlt: social.alt,
+    ogImageType: 'image/png',
+    twitterCard: 'summary_large_image',
     twitterTitle: fullTitle,
     twitterDescription: description,
+    twitterImage: image,
+    twitterImageAlt: social.alt,
     ...(type === 'article' && published ? { articlePublishedTime: published } : {}),
     ...(type === 'article' && modified ? { articleModifiedTime: modified } : {})
   })
@@ -42,6 +50,7 @@ export const personLd = {
   '@type': 'Person',
   '@id': `${site.url}/#person`,
   name: site.name,
+  alternateName: site.handle,
   url: site.url,
   jobTitle: site.role,
   worksFor: { '@type': 'Organization', name: site.company },

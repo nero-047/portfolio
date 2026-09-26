@@ -5,8 +5,8 @@ defineProps<{ entries: EntryMeta[]; emptyMessage?: string }>()
 </script>
 
 <template>
-  <div v-if="entries.length" class="work-list">
+  <ol v-if="entries.length" class="work-list">
     <WorkFeature v-for="(e, i) in entries" :key="e.slug" :entry="e" :index="i" :to="`/work/${e.slug}`" />
-  </div>
+  </ol>
   <EmptyCollection v-else :message="emptyMessage" />
 </template>

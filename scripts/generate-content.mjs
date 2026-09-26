@@ -1,19 +1,24 @@
 // Build-time content pipeline: Markdown in content/ -> typed modules in app/generated/,
 // plus public/sitemap.xml and public/robots.txt. No runtime server or database involved.
-import { promises as fs } from 'node:fs'
+import { promises as fs, readFileSync } from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import matter from 'gray-matter'
 import MarkdownIt from 'markdown-it'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
-const SITE_URL = 'https://rishi.is-a.dev'
+// Single source of truth for the production origin, shared with app/config/site.ts.
+const SITE_URL = JSON.parse(readFileSync(path.join(root, 'app', 'config', 'site.json'), 'utf8')).origin
 const COLLECTIONS = ['work', 'case-studies', 'blog', 'lab']
-// Only '/' is publicly promoted right now (Work/About/Contact are sections on it).
-// /work, /case-studies, /blog and /lab stay as dormant, unlinked architecture: they exist
-// so a future Markdown entry becomes a crawlable route without code changes, but they are
-// deliberately excluded from the sitemap while empty.
-const STATIC_ROUTES = ['/']
+// Diagrams are hand-authored SVG components, not content: front matter may only
+// reference one that exists, so a typo fails the build instead of rendering nothing.
+// Keep in sync with app/components/ProjectDiagram.vue.
+const DIAGRAMS = ['navfarm-tenancy', 'navcrm-surfaces']
+// Routes that exist as components rather than Markdown, and are publicly linked.
+// /case-studies and /blog stay dormant, unlinked architecture: they exist so a future
+// Markdown entry becomes a crawlable route without code changes, but they are
+// deliberately kept out of the navigation and the sitemap while empty.
+const STATIC_ROUTES = ['/', '/work', '/lab', '/resume']
 const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
 
 const md = new MarkdownIt({ html: false, linkify: true, typographer: true })
@@ -60,9 +65,10 @@ async function readCollection(collection) {
     if (data.featured !== undefined && typeof data.featured !== 'boolean') fail(file, '"featured" must be true or false')
     if (data.order !== undefined && typeof data.order !== 'number') fail(file, '"order" must be a number')
     if (data.tags !== undefined && !(Array.isArray(data.tags) && data.tags.every((t) => typeof t === 'string'))) fail(file, '"tags" must be a list of strings')
-    for (const key of ['role', 'status']) {
+    for (const key of ['role', 'status', 'context', 'year']) {
       if (data[key] !== undefined && (typeof data[key] !== 'string' || !data[key].trim())) fail(file, `"${key}" must be a non-empty string`)
     }
+    if (data.diagram !== undefined && !DIAGRAMS.includes(data.diagram)) fail(file, `unknown "diagram" — expected one of ${DIAGRAMS.join(', ')}`)
     if (data.stack !== undefined && !(Array.isArray(data.stack) && data.stack.every((t) => typeof t === 'string'))) fail(file, '"stack" must be a list of strings')
     if (data.cover !== undefined && (typeof data.cover !== 'string' || !(data.cover.startsWith('/') || isHttpUrl(data.cover)))) fail(file, '"cover" must be a /public path or an http(s) URL')
     let links
@@ -85,7 +91,10 @@ async function readCollection(collection) {
         ...(typeof data.order === 'number' && { order: data.order }),
         ...(data.cover && { cover: data.cover }),
         ...(data.role && { role: data.role.trim() }),
+        ...(data.context && { context: data.context.trim() }),
+        ...(data.year && { year: data.year.trim() }),
         ...(data.status && { status: data.status.trim() }),
+        ...(data.diagram && { diagram: data.diagram }),
         ...(data.stack?.length && { stack: data.stack }),
         ...(links && Object.keys(links).length && { links }),
       },
@@ -119,7 +128,10 @@ export interface EntryMeta {
   featured?: boolean
   order?: number
   cover?: string
+  diagram?: string
   role?: string
+  context?: string
+  year?: string
   status?: string
   stack?: string[]
   links?: Record<string, string>

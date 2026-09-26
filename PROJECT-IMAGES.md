@@ -1,38 +1,57 @@
-# Replacing the project placeholder images
+# Project imagery
 
-The Work section currently ships original, illustrative placeholder artwork (not real
-product screenshots) for three of the four entries. Swap them out once real captures
-exist — no component or layout changes are needed, only the files below.
+## The policy
 
-## Files to replace
+This site does not ship invented product screenshots, stand-in dashboard artwork or
+generated "illustrative previews". NavCRM and NAVFarm are client software whose
+interfaces show customer data, and an image that only *looks* like the product tells a
+visitor less than nothing.
 
-| File | Used by | Recommended size / aspect |
-|---|---|---|
-| `public/images/projects/navcrm-placeholder.svg` | NavCRM (featured row) | ~1200×900px, 4:3. Desktop crops to a wider box, so keep the subject centered. |
-| `public/images/projects/navfarm-platform-placeholder.svg` | Navfarm Platform (paired card) | ~1200×900px, 4:3. |
-| `public/images/projects/navfarm-site-placeholder.svg` | Navfarm.com (paired card) | ~1200×900px, 4:3. |
+So where a real, approved capture does not exist, the work is presented with the things
+that are genuinely mine to publish: structure, scope and reasoning. The homepage and the
+case studies use hand-authored structural diagrams
+([`app/components/ProjectDiagram.vue`](app/components/ProjectDiagram.vue)) instead. Those
+are real text in real elements, so they reflow, read correctly to a screen reader and
+follow the theme — and they are honest about what they are.
 
-`NotionLite` (the compact row) has no image in the approved layout — nothing to replace there.
+NavCRM additionally states the constraint outright rather than hiding it, with a
+"Professional work · screenshots restricted" marker.
 
-## How to replace an image
+## Adding a real image later
 
-1. Add the new file anywhere under `public/images/projects/` (any real raster/vector format —
-   `.webp` and `.avif` are good choices for photos; keep `.svg` only if the replacement is
-   itself vector art). Don't just rename an existing file's extension.
-2. Open [`app/config/work.ts`](app/config/work.ts) and update the matching entry's `image`:
-   - `src` — the new file's path (e.g. `/images/projects/navcrm.webp`)
-   - `alt` — accurate alt text. Leave it `''` only if the image is purely decorative; if it
-     conveys real information (a real screenshot), describe what's actually shown.
-   - `isPlaceholder` — set to `false`. This removes the small "Illustrative preview" badge
-     rendered by `WorkFeatured.vue` / `WorkCard.vue`.
-3. No other file needs to change. The image components use fixed `aspect-ratio` boxes with
-   `object-fit: cover`, so any reasonably close aspect ratio will fill the frame without
-   causing layout shift; a 4:3 source crops most predictably.
+Nothing in the layout needs to change when an approved capture exists.
 
-## Notes
+### On the homepage
 
-- Keep image weight reasonable (target well under 300KB per image) since the site is a fully
-  static, prerendered build.
-- If a project gets a real destination (case study, live site, repo), add `href` to its entry
-  in `work.ts` — the components don't currently render a link since none of the four projects
-  has a verified destination yet.
+1. Put the file under `public/images/projects/` (`.webp` or `.avif` for photographic
+   captures; `.svg` only if it is genuinely vector art).
+2. In [`app/config/work.ts`](app/config/work.ts), set the entry's `image`:
+   ```ts
+   image: { src: '/images/projects/navfarm.webp', alt: 'What the image actually shows', width: 1600, height: 1200 }
+   ```
+   `alt` must describe what is shown — leave it `''` only if the image is purely
+   decorative and the surrounding text already carries the meaning.
+3. Render it in [`app/components/SelectedWork.vue`](app/components/SelectedWork.vue)
+   where that entry's `ProjectDiagram` currently sits, or alongside it.
+
+### On a case study page
+
+Add `cover: /images/projects/<file>` to the Markdown front matter. A `cover` takes
+precedence over `diagram` as the lead visual, so the diagram can either move into the
+body or be dropped from the front matter.
+
+## Constraints
+
+- Keep each image well under ~300KB; this is a fully static build with no image service.
+- Always give images explicit `width`/`height` (or a fixed `aspect-ratio` box) so
+  nothing shifts as they load.
+- Only publish an image you are permitted to publish. If that is in any doubt, the
+  diagram is the better answer anyway.
+
+## The social card
+
+`public/images/social/card.png` (1200×630) is built from the real F1-75 poster asset,
+not from a generic preview image. Its source is
+[`scripts/og-card/card.html`](scripts/og-card/card.html), which includes the one-line
+headless-Chrome command that regenerates it. It is not part of the build, so the project
+has no browser dependency.
