@@ -1,17 +1,20 @@
 ---
 title: NotionLite
-description: A small personal build — a minimal Notion-inspired workspace focused on calm interaction and editor-style UI.
-order: 3
-role: Personal project
-context: Personal
-status: Personal project
+description: A Notion-style collaborative workspace — nested pages, block-based editing, sharing and comments — built to understand how editors work.
+order: 4
+context: Personal project
+stack: [Next.js, Block editor, Auth]
 ---
 
 ## Context
 
-NotionLite is a small independent build: a minimal, Notion-inspired workspace. It exists
-because I wanted to understand how block-based editors actually work, and the fastest way
-to understand something is to try to build the smallest honest version of it.
+NotionLite is an independent build: a Notion-style collaborative workspace. It exists
+because I wanted to understand how block-based editors actually work, and the only
+reliable way to understand something like that is to build one.
+
+What it ended up covering: nested pages, block-based editing with drag-and-drop,
+authentication, public and private sharing, collaboration, per-block comments, and a
+small amount of AI writing assistance.
 
 ## Why an editor
 
@@ -34,8 +37,18 @@ stopped being usable, and where the line actually sits.
 The answer, mostly, is that structure does the work that decoration is usually asked to
 do. Spacing and alignment tell you what a block is. You do not need a border for that.
 
+## Sharing is where it got interesting
+
+Nested pages plus public and private sharing is a permission problem wearing a
+document's clothes. A page inherits from its parent until someone overrides it, which
+means every read has to answer "who is asking, and what did the nearest ancestor with
+an opinion say?" Comments make it worse: a comment belongs to a block, the block belongs
+to a page, and the page's visibility can change after the comment exists.
+
+None of that is visible in the interface, which is the point. It is also most of the work.
+
 ## Scope
 
-This is a personal project, not a product. There are no users, no uptime, and no
-numbers to report — it is here because what it taught me shows up in the work that
-does have users.
+This is a personal project, not a product. There are no usage numbers to report and I
+am not going to invent any — it is here because the editor, the permission model and
+the collaboration work all show up in the systems that do have users.

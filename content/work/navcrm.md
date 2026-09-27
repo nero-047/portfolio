@@ -1,9 +1,10 @@
 ---
 title: NavCRM
-description: A multi-tenant CRM platform, maintained and extended across backend APIs, web interfaces and React Native applications.
+description: A multi-tenant CRM platform — completed, and now maintained across backend APIs, web interfaces and a React Native application.
 order: 1
 role: Software Engineer
-context: Prudence Consulting
+context: Prudence Technology
+year: 2026–present
 status: Ongoing
 stack: [Backend APIs, Web, React Native]
 diagram: navcrm-surfaces
@@ -11,10 +12,12 @@ diagram: navcrm-surfaces
 
 ## Context
 
-NavCRM is a multi-tenant CRM platform that was already built, already deployed and
-already in use when I started working on it. My work is maintaining and extending it,
-which is a different job from building something new and, honestly, the job most
-software actually is.
+NavCRM is a multi-tenant CRM platform. It was already part-built when I picked it up —
+during what was nominally a mobile internship — and the work grew from there: I took it
+to completion across web and mobile, and I maintain it now.
+
+Finishing someone else's system is a different job from starting your own, and it is
+the job most software actually is.
 
 ## The problem with inherited systems
 
@@ -34,13 +37,20 @@ path, drawn once.
 
 ## My contribution
 
-Maintaining and extending the platform across backend APIs, web interfaces and the
-React Native applications. Not architecting it, not owning it — working inside a system
-other people built and continuing to build it with them.
+I built out the core multi-tenant web and backend capabilities and the APIs behind the
+React Native application — well past the original scope of a mobile internship — carried
+the system to completion, and now maintain it across both surfaces.
 
-Concretely, that means the same change usually lands in several places at once, and the
-useful skill is holding all of them in view rather than fixing the symptom nearest to
-the bug report.
+That covers the working parts of a CRM: leads, opportunities, tasks, meetings, notes,
+contacts, clients and complaint tickets, plus metadata-driven fields, SSO, two-factor
+authentication, JWT auth and a platform admin portal.
+
+I did not start it, and I am not going to claim I did. What I can say is that it is
+finished, it runs, and when something is wrong with it the person who fixes it is me.
+
+Practically, that means a change usually lands in several places at once, and the useful
+skill is holding all of them in view rather than fixing the symptom nearest to the bug
+report.
 
 ## What working across three surfaces teaches you
 
@@ -58,6 +68,7 @@ are mostly a negotiation with their own history.
 ## Constraints
 
 This is client software with real customer data in it, so this page has no screenshots
-and no numbers. I am not going to publish an interface I do not own, and I am not going
-to invent metrics to fill the gap. What I can describe is the shape of the system and
-the reasoning I apply inside it, which is the part that actually transfers.
+and no figures about how much of it there is. Those exist, and I will share them in a
+conversation; publishing a client system's internals on a public page is a different
+thing. What belongs here is the shape of the system and the reasoning I apply inside it,
+which is the part that actually transfers.

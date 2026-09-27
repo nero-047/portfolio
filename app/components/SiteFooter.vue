@@ -7,6 +7,9 @@ const year = useState('footer-year', () => new Date().getFullYear())
   <footer class="site-footer">
     <div class="inner">
       <p class="site-footer__id">{{ site.wordmark }}<span class="wordmark__dot">.</span> / {{ year }}</p>
+      <!-- /lab is reachable and crawlable from here, but not promoted to the primary nav
+           while both of its entries are about this site. -->
+      <p class="site-footer__nav"><NuxtLink to="/lab">Lab</NuxtLink></p>
       <p class="site-footer__credit">
         {{ modelCredit.title }} by
         <a :href="modelCredit.sourceUrl" rel="noopener">{{ modelCredit.creator }}</a>,

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { contentIndex, contentLoaders, type CollectionName } from '~/generated/content-index.generated'
 import type { DiagramId } from '~/config/work'
+import { site } from '~/config/site'
 import { formatDate } from '~/utils/format'
 import { breadcrumbLd, entryLd } from '~/composables/usePageSeo'
 
@@ -52,36 +53,49 @@ const next = computed(() => {
 </script>
 
 <template>
-  <article v-if="meta" class="detail">
-    <header class="detail__head">
-      <NuxtLink class="crumb" :to="base">← {{ backLabel }}</NuxtLink>
-      <h1>{{ meta.title }}</h1>
-      <p class="detail__desc">{{ meta.description }}</p>
-      <dl v-if="facts.length" class="meta">
-        <div v-for="[k, v] in facts" :key="k">
-          <dt class="label">{{ k }}</dt>
-          <dd>{{ v }}</dd>
-        </div>
-      </dl>
-    </header>
-    <div class="wrap">
-      <div v-if="meta.cover" class="cover"><img :src="meta.cover" alt="" loading="lazy" decoding="async"></div>
-      <!-- Structure, not a screenshot: the lead visual for work that has no publishable interface. -->
-      <div v-else-if="meta.diagram" class="detail__figure">
-        <ProjectDiagram :id="(meta.diagram as DiagramId)" />
+  <!--
+    One reading column, centred. Only the metadata row and figures use the wider
+    track either side, and they break out symmetrically — every text block keeps
+    the same left edge. The empty space is an article's margin, not a column that
+    was left unfilled; nothing is invented to occupy it.
+  -->
+  <article v-if="meta" class="article">
+    <p class="article__crumb"><NuxtLink class="crumb" :to="base">← {{ backLabel }}</NuxtLink></p>
+    <h1 class="article__title">{{ meta.title }}</h1>
+    <p class="article__desc">{{ meta.description }}</p>
+    <dl v-if="facts.length" class="meta article__wide">
+      <div v-for="[k, v] in facts" :key="k">
+        <dt class="label">{{ k }}</dt>
+        <dd>{{ v }}</dd>
       </div>
-      <div class="detail__body">
-        <ProseContent v-if="body" :html="body.html" />
-        <div v-if="meta.links" class="detail__links">
-          <a v-for="(href, label) in meta.links" :key="label" class="link" :href="href" rel="noopener">{{ label }} ↗</a>
-        </div>
-      </div>
-      <nav v-if="next" class="detail__next" :aria-label="`Next in ${backLabel}`">
-        <NuxtLink :to="`${base}/${next.slug}`">
-          <span class="label">Next</span>
-          <span class="detail__next-title">{{ next.title }}</span>
-        </NuxtLink>
-      </nav>
+    </dl>
+
+    <div v-if="meta.cover" class="cover article__wide"><img :src="meta.cover" alt="" loading="lazy" decoding="async"></div>
+    <!-- Structure, not a screenshot: the lead visual for work that has no publishable interface. -->
+    <div v-else-if="meta.diagram" class="article__figure article__wide">
+      <ProjectDiagram :id="(meta.diagram as DiagramId)" />
     </div>
+
+    <ProseContent v-if="body" :html="body.html" />
+
+    <p v-if="meta.links" class="article__links">
+      <a v-for="(href, label) in meta.links" :key="label" class="link" :href="href" rel="noopener">{{ label }} ↗</a>
+    </p>
+
+    <!-- Someone who read this far is the most engaged visitor the site will get. -->
+    <section class="article__cta" aria-labelledby="cta-heading">
+      <h2 id="cta-heading" class="article__cta-title">Have something in mind?</h2>
+      <p class="article__cta-copy">
+        Open to interesting software-engineering opportunities and always happy to talk software.
+      </p>
+      <a class="button" :href="`mailto:${site.email}`">Let’s talk →</a>
+    </section>
+
+    <nav v-if="next" class="article__next" :aria-label="`Next in ${backLabel}`">
+      <NuxtLink :to="`${base}/${next.slug}`">
+        <span class="label">Next project</span>
+        <span class="article__next-title">{{ next.title }}</span>
+      </NuxtLink>
+    </nav>
   </article>
 </template>

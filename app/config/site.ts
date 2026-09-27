@@ -12,8 +12,11 @@ export const site = {
   /** Internet identity / wordmark. The professional name above is never replaced by it. */
   wordmark: 'nero',
   handle: 'nero',
+  /** Positioning. The job title on the résumé is "Software Developer"; this is the
+   *  level the portfolio is pitched at, and the résumé page uses the real titles. */
   role: 'Software Engineer',
-  company: 'Prudence Consulting',
+  company: 'Prudence Technology',
+  location: 'Delhi, India',
   url: origin,
   email: 'rishigurung47@gmail.com',
   github: 'https://github.com/nero-047',
@@ -26,13 +29,17 @@ export const site = {
 /**
  * Primary navigation. Anchors point at homepage sections; paths are real routes.
  * Nothing is listed here until its destination exists — no dead links.
+ *
+ * /lab is deliberately absent: both entries there are currently about this site,
+ * which is not enough to earn a primary slot. The route stays live and is linked
+ * from the footer, so it is reachable and crawlable, just not promoted.
+ * No `arrow` on "Say hello" — it is an in-page anchor, not an outbound link.
  */
-export const nav: { label: string; href: string; arrow?: boolean }[] = [
+export const nav: { label: string; href: string }[] = [
   { label: 'Work', href: '/work' },
   { label: 'About', href: '/#about' },
-  { label: 'Lab', href: '/lab' },
   { label: 'Résumé', href: '/resume' },
-  { label: 'Say hello', href: '/#contact', arrow: true }
+  { label: 'Say hello', href: '/#contact' }
 ]
 
 /** Open Graph / Twitter card. 1200×630 composition built from the real F1-75 poster. */

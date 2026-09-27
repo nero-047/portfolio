@@ -255,9 +255,14 @@ h1, h2, h3 { margin: 0; font-weight: 600; }
 .section__head { display: grid; gap: 1.25rem; margin-bottom: clamp(2.5rem, 6vw, 5rem); }
 .section__head .eyebrow { margin-bottom: 0.75rem; }
 .section__lede { margin: 0; color: var(--muted); max-width: 42ch; font-size: 1.0625rem; line-height: 1.55; }
+/* Same split, but the right column is the section's body rather than a one-line lede. */
+.section__head--flush { margin-bottom: 0; gap: 2rem; }
 @media (min-width: 900px) {
   .section__head { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 2rem clamp(2rem, 5vw, 5rem); align-items: end; }
   .section__lede { padding-bottom: 0.35rem; }
+  /* Same 7/5 split as the Selected work head, so the right-hand column starts on
+     the same line in every section down the page. */
+  .section__head--flush { align-items: start; }
 }
 
 /* ==========================================================================
@@ -279,16 +284,15 @@ h1, h2, h3 { margin: 0; font-weight: 600; }
 .proj__descriptor { margin: 0.75rem 0 0; font-size: clamp(1.0625rem, 0.5vw + 0.95rem, 1.375rem); color: var(--muted); }
 .proj__descriptor--flagship { font-size: clamp(1.125rem, 0.8vw + 1rem, 1.625rem); margin-top: 1rem; max-width: 30ch; }
 .proj__meta { margin: 1.5rem 0 0; }
-.proj__contribution { margin: 1rem 0 0; font-size: 1rem; line-height: 1.65; max-width: 44ch; }
+.proj__contribution { margin: 1rem 0 0; font-size: 1rem; line-height: 1.65; max-width: 44ch; text-wrap: pretty; }
 .proj__cta { margin-top: 2rem; }
 
 /* "There is an interface here; you cannot see it" — stated, not hidden behind a grey box. */
 .restricted {
-  display: flex; width: fit-content; align-items: center; gap: 0.6rem; margin: 1.75rem 0 0;
-  border-left: 2px solid var(--accent); background: var(--surface); padding: 0.55rem 0.85rem;
-  font: 500 0.6875rem/1.4 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+  display: block; width: fit-content; margin: 1.75rem 0 0;
+  border-left: 2px solid var(--accent); padding: 0.1rem 0 0.1rem 0.85rem;
+  font: 500 0.6875rem/1.5 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
 }
-.restricted__icon { flex: none; color: var(--accent); }
 
 .proj--split .proj__aside { margin-top: 2.5rem; }
 @media (min-width: 900px) {
@@ -306,23 +310,24 @@ h1, h2, h3 { margin: 0; font-weight: 600; }
   .proj__spread { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); column-gap: clamp(2rem, 5vw, 5rem); }
 }
 
-/* Quieter rows for secondary and personal work */
+/* Quieter rows for secondary and personal work. Same index rail as the projects
+   above (number / tag / period) so metadata reads the same way everywhere. */
 .proj-rows { list-style: none; margin: 0; padding: 0; }
-.proj-row { border-bottom: 1px solid var(--rule); padding-block: 1.75rem; display: grid; gap: 0.75rem; }
+.proj-row { border-bottom: 1px solid var(--rule); padding-block: 2rem; display: grid; gap: 1rem; }
 .proj-row .proj__index { margin: 0; }
-.proj-row__title { font-size: 1.75rem; letter-spacing: -0.03em; line-height: 1.1; }
+.proj-row__title { font-size: 1.5rem; letter-spacing: -0.03em; line-height: 1.1; }
 .proj-row__descriptor { margin: 0.35rem 0 0; color: var(--muted); font-size: 1rem; }
-.proj-row__contribution { margin: 0.75rem 0 0; font-size: 0.9375rem; color: var(--muted); max-width: 46ch; }
-.proj-row__meta { margin: 0; }
-.proj-row__action { margin: 0; }
-.proj-row--minor .proj-row__title { font-size: 1.25rem; }
-.proj-row--minor .proj-row__descriptor { font-size: 0.9375rem; }
+.proj-row__contribution { margin: 0.9rem 0 0; font-size: 0.9375rem; line-height: 1.6; color: var(--muted); max-width: 52ch; text-wrap: pretty; }
+.proj-row__action { margin: 1.25rem 0 0; }
+.proj-row__shot {
+  width: 100%; max-width: 44rem; height: auto; margin-top: 1.75rem;
+  border: 1px solid var(--rule);
+}
 @media (min-width: 900px) {
-  .proj-row {
-    grid-template-columns: 10rem minmax(0, 1fr) 13rem 10rem;
-    column-gap: clamp(1.5rem, 3vw, 3rem); align-items: baseline; padding-block: 2.25rem;
-  }
-  .proj-row__meta, .proj-row__action { text-align: right; }
+  .proj-row { grid-template-columns: 10rem minmax(0, 1fr); column-gap: clamp(2rem, 5vw, 5rem); padding-block: 2.75rem; }
+  /* The rail stacks so a period never has to wrap against the title. */
+  .proj-row .proj__index { flex-direction: column; align-items: start; gap: 0.35rem; }
+  .proj-row .proj__period { margin-left: 0; }
 }
 
 /* ==========================================================================
@@ -381,35 +386,20 @@ h1, h2, h3 { margin: 0; font-weight: 600; }
 .proj__figure { background: var(--surface); padding: clamp(1.5rem, 3.5vw, 3rem); transition: var(--theme-transition); }
 
 /* ---------- About ---------- */
-.about-section__grid { display: grid; gap: clamp(2.5rem, 5vw, 4rem); }
-.about { max-width: 58ch; display: grid; gap: 1.1rem; margin-top: 1.75rem; }
+.about { display: grid; gap: 1.15rem; max-width: 52ch; }
 .about p { margin: 0; font-size: clamp(1rem, 0.3vw + 0.95rem, 1.125rem); line-height: 1.7; }
 .about p + p { color: var(--muted); }
 
-.facts { margin: 0; padding: 0; border-top: 1px solid var(--rule); align-self: start; }
-.facts__row {
-  display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
-  padding: 0.85rem 0; border-bottom: 1px solid var(--rule);
-}
-.facts dt { margin: 0; }
-.facts dd { margin: 0; font-size: 0.9375rem; text-align: right; }
-@media (min-width: 900px) {
-  .about-section__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 22rem); column-gap: clamp(3rem, 6vw, 6rem); }
-  .facts { margin-top: 3.25rem; }
-}
-
 /* ---------- Contact ---------- */
-.contact-section__grid { display: grid; gap: clamp(2.5rem, 5vw, 4rem); }
-.contact-lede { margin: 1.25rem 0 2rem; color: var(--muted); font-size: 1.0625rem; line-height: 1.6; max-width: 40ch; }
+.contact-lede { margin: 1.5rem 0 2rem; color: var(--muted); font-size: 1.0625rem; line-height: 1.6; max-width: 40ch; }
 .contact-cta { margin: 0; }
-.contact-rows { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule); align-self: start; }
+.contact-rows { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule); align-self: start; max-width: 28rem; }
 .contact-rows li { border-bottom: 1px solid var(--rule); }
 .contact-rows a { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: 0.95rem 0; text-decoration: none; }
 .contact-rows__handle { font-size: 0.9375rem; font-weight: 500; overflow-wrap: anywhere; text-align: right; transition: color 0.3s ease; }
 .contact-rows a:hover .contact-rows__handle, .contact-rows a:focus-visible .contact-rows__handle { color: var(--accent); }
 @media (min-width: 900px) {
-  .contact-section__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 22rem); column-gap: clamp(3rem, 6vw, 6rem); }
-  .contact-rows { margin-top: 3.25rem; }
+  .contact-rows { margin-top: 0.4rem; }
 }
 
 /* ---------- Inner page heads ---------- */
@@ -432,7 +422,7 @@ h1, h2, h3 { margin: 0; font-weight: 600; }
 }
 .feature__desc { margin: 0; color: var(--muted); max-width: 52ch; font-size: 1.0625rem; line-height: 1.55; }
 .feature__meta { margin: 0.5rem 0 0; }
-.feature__more { margin: 0.75rem 0 0; font-size: 0.875rem; transition: color 0.3s ease; }
+.feature__more { margin: 0.75rem 0 0; font-size: 0.875rem; justify-self: start; transition: color 0.3s ease; }
 .feature__link:hover .feature__title { color: var(--accent); transform: translateX(0.4rem); }
 .feature__link:hover .feature__more { color: var(--accent); }
 @media (min-width: 900px) {
@@ -459,25 +449,70 @@ h1, h2, h3 { margin: 0; font-weight: 600; }
   .row__link:hover .row__title, .row__link:hover .row__arrow { transform: none; }
 }
 
-/* ---------- Detail / case-study pages ---------- */
-.detail { padding-bottom: clamp(3rem, 7vw, 6rem); }
+/* ---------- Articles (case studies, lab notes) ----------
+   A three-track grid: one centred reading column, plus a wider track either side
+   that only the metadata row, figures and the closing blocks may use. The space
+   left over is an article's margin — nothing is invented to fill it. */
+.article {
+  display: grid;
+  /* Narrow screens: a single column between the gutters — the wide track is the
+     text track, because there is no room to break out of. */
+  grid-template-columns:
+    [full-start] var(--gutter)
+    [wide-start text-start] minmax(0, 1fr) [text-end wide-end]
+    var(--gutter) [full-end];
+  padding-block: clamp(1.5rem, 4vw, 3rem) clamp(2rem, 4vw, 3rem);
+}
+.article > * { grid-column: text; }
+.article > .article__wide { grid-column: wide; }
+@media (min-width: 900px) {
+  /* Wide screens: the reading column is centred and figures break out either side. */
+  .article {
+    grid-template-columns:
+      [full-start] minmax(var(--gutter), 1fr)
+      [wide-start] minmax(0, 13rem)
+      [text-start] minmax(0, 42rem) [text-end]
+      minmax(0, 13rem) [wide-end]
+      minmax(var(--gutter), 1fr) [full-end];
+  }
+}
+
 .crumb { display: inline-block; font: 500 0.6875rem/1 var(--mono); letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted); text-decoration: none; }
 .crumb:hover { color: var(--accent); }
-.detail__head { max-width: var(--wrap); margin-inline: auto; padding: clamp(1.5rem, 4vw, 3rem) var(--gutter) 0; }
-.detail__head h1 { font-size: clamp(2.25rem, 4.6vw + 0.8rem, 4.5rem); font-weight: 600; letter-spacing: -0.045em; line-height: 1.04; margin-top: 1.25rem; overflow-wrap: anywhere; }
-.detail__desc { margin: 1.25rem 0 0; color: var(--muted); font-size: clamp(1.125rem, 1.4vw, 1.5rem); line-height: 1.4; max-width: 34em; }
-.meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: 1.5rem 2rem; margin: clamp(2rem, 5vw, 3.5rem) 0 0; padding-top: 1.25rem; border-top: 1px solid var(--fg); }
+.article__crumb { margin: 0; }
+.article__title {
+  margin: 1.25rem 0 0; font-size: clamp(2.25rem, 3.4vw + 1rem, 3.5rem); font-weight: 600;
+  letter-spacing: -0.045em; line-height: 1.04; overflow-wrap: anywhere;
+}
+.article__desc { margin: 1.25rem 0 0; color: var(--muted); font-size: clamp(1.125rem, 0.8vw + 1rem, 1.375rem); line-height: 1.45; }
+
+.meta {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: 1.25rem 2rem;
+  margin: clamp(2rem, 5vw, 3.5rem) 0 0; padding-top: 1.25rem; border-top: 1px solid var(--fg);
+}
 .meta dt { margin-bottom: 0.35rem; }
 .meta dd { margin: 0; font-size: 0.9375rem; }
+
+/* Figures and covers break wider than the prose, which is the whole point of the
+   wide track — the diagram gets room, the text keeps its measure. */
 .cover { margin-top: clamp(2rem, 5vw, 4rem); aspect-ratio: 16 / 9; overflow: hidden; background: var(--surface); }
 .cover img { width: 100%; height: 100%; object-fit: cover; }
-.detail__figure { margin-top: clamp(2rem, 5vw, 4rem); max-width: 54rem; background: var(--surface); padding: clamp(1.5rem, 4vw, 3.5rem); transition: var(--theme-transition); }
-.detail__body { margin-top: clamp(2.5rem, 6vw, 5rem); display: grid; grid-template-columns: minmax(0, 1fr); }
-.detail__links { display: flex; flex-wrap: wrap; gap: 0.75rem 2rem; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); max-width: var(--measure); }
-.detail__next { margin-top: clamp(3rem, 7vw, 5rem); border-top: 1px solid var(--fg); }
-.detail__next a { display: grid; gap: 0.4rem; padding-top: 1.5rem; text-decoration: none; }
-.detail__next-title { font-size: clamp(1.5rem, 3.2vw, 2.25rem); font-weight: 600; letter-spacing: -0.035em; line-height: 1.1; transition: color 0.3s ease; }
-.detail__next a:hover .detail__next-title { color: var(--accent); }
+.article__figure {
+  margin-top: clamp(2rem, 5vw, 4rem); background: var(--surface);
+  padding: clamp(1.5rem, 4vw, 3rem); transition: var(--theme-transition);
+}
+
+.article .prose { max-width: none; margin-top: clamp(2.5rem, 6vw, 4.5rem); }
+.article__links { display: flex; flex-wrap: wrap; gap: 0.75rem 2rem; margin: 3rem 0 0; padding-top: 1.5rem; border-top: 1px solid var(--rule); }
+
+.article__cta { margin-top: clamp(3.5rem, 8vw, 6rem); padding-top: 2rem; border-top: 1px solid var(--fg); }
+.article__cta-title { font-size: clamp(1.5rem, 1.4vw + 1.1rem, 2.25rem); letter-spacing: -0.035em; line-height: 1.1; }
+.article__cta-copy { margin: 1rem 0 2rem; color: var(--muted); font-size: 1.0625rem; line-height: 1.6; max-width: 44ch; }
+
+.article__next { margin-top: clamp(2.5rem, 6vw, 4rem); border-top: 1px solid var(--rule); }
+.article__next a { display: grid; gap: 0.4rem; padding-top: 1.5rem; text-decoration: none; }
+.article__next-title { font-size: clamp(1.375rem, 2.4vw, 2rem); font-weight: 600; letter-spacing: -0.035em; line-height: 1.1; transition: color 0.3s ease; }
+.article__next a:hover .article__next-title { color: var(--accent); }
 
 /* Prose */
 .prose { max-width: var(--measure); }
@@ -512,13 +547,13 @@ h1, h2, h3 { margin: 0; font-weight: 600; }
 .cv__entry-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 0.35rem 1.5rem; }
 .cv__entry h3 { font-size: 1.1875rem; letter-spacing: -0.02em; }
 .cv__entry p { margin: 0; line-height: 1.7; max-width: var(--measure); }
-.cv__entry ul { margin: 0.35rem 0 0; padding-left: 1.2em; max-width: var(--measure); }
-.cv__entry li + li { margin-top: 0.35em; }
 .cv__sub { margin: 0; color: var(--muted); font-size: 0.9375rem; }
-.cv__tags { display: flex; flex-wrap: wrap; gap: 0.4rem 0.5rem; margin: 1.25rem 0 0; padding: 0; list-style: none; }
-.cv__tags li {
-  border: 1px solid var(--rule); padding: 0.35rem 0.7rem;
-  font: 500 0.75rem/1.3 var(--mono); letter-spacing: 0.05em; color: var(--muted);
+/* Grouped skills read faster than a tag cloud and take less vertical space. */
+.cv__skills { margin: 1.5rem 0 0; display: grid; gap: 0.85rem; }
+.cv__skills > div { display: grid; gap: 0.25rem; }
+.cv__skills dd { margin: 0; font-size: 0.9375rem; line-height: 1.6; }
+@media (min-width: 640px) {
+  .cv__skills > div { grid-template-columns: 8rem minmax(0, 1fr); gap: 1.5rem; align-items: baseline; }
 }
 .cv__note { margin: 1.5rem 0 0; color: var(--muted); font-size: 0.875rem; max-width: var(--measure); }
 
@@ -533,6 +568,9 @@ h1, h2, h3 { margin: 0; font-weight: 600; }
 .site-footer__credit a { text-decoration: none; }
 .site-footer__credit a:hover { color: var(--accent); }
 .site-footer__copy { margin: 0; font-size: 0.75rem; color: var(--muted); }
+.site-footer__nav { margin: 0; font-size: 0.875rem; }
+.site-footer__nav a { text-decoration: none; color: var(--muted); }
+.site-footer__nav a:hover { color: var(--fg); }
 @media (min-width: 640px) {
   .site-footer__credit { order: 0; width: auto; }
 }

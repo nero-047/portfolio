@@ -3,10 +3,10 @@ title: NAVFarm
 description: A multi-tenant farm ERP and operations platform where every tenant is provisioned with its own isolated data.
 order: 2
 role: Software Engineer
-context: Prudence Consulting / Navfarm
+context: Prudence Technology / Navfarm
 year: 2026–present
 status: Ongoing
-stack: [NestJS, Next.js, Nx, MySQL]
+stack: [Nx, Next.js, NestJS, Drizzle ORM, MySQL, Redis]
 diagram: navfarm-tenancy
 ---
 

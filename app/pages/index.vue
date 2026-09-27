@@ -10,13 +10,6 @@ usePageSeo({
   jsonLd: [personLd, websiteLd]
 })
 
-const facts = [
-  { label: 'Name', value: site.name },
-  { label: 'Handle', value: site.handle },
-  { label: 'Role', value: site.role },
-  { label: 'Interests', value: 'F1 / software / design / experiments' }
-]
-
 const contacts = [
   { label: 'Email', handle: site.email, href: `mailto:${site.email}` },
   { label: 'GitHub', handle: site.githubHandle, href: site.github },
@@ -31,39 +24,35 @@ const contacts = [
 
     <SelectedWork />
 
-    <section id="about" class="section about-section" tabindex="-1" aria-labelledby="about-heading">
-      <div class="wrap about-section__grid">
-        <div class="about-section__main">
+    <!-- Heading left, prose right — the same split as the Selected work head, so the
+         page keeps one rhythm. The writing carries this section; there is no
+         name/handle/role panel restating what the hero already said. -->
+    <section id="about" class="section" tabindex="-1" aria-labelledby="about-heading">
+      <div class="wrap section__head section__head--flush">
+        <div class="section__headline">
           <p class="eyebrow">02 / About</p>
           <h2 id="about-heading" class="section__title">I like understanding how systems fit together.</h2>
-          <div class="about">
-            <p>
-              I work across backend, web and mobile, often on existing systems where understanding
-              how things already work matters as much as writing the next feature.
-            </p>
-            <p>
-              I like tracing problems across interfaces, APIs, databases and deployment, then
-              finding the simplest useful way to change the system.
-            </p>
-            <p>
-              Outside work, I’m usually following Formula 1 or building something because I want to
-              understand how it works.
-            </p>
-          </div>
         </div>
-
-        <dl class="facts">
-          <div v-for="f in facts" :key="f.label" class="facts__row">
-            <dt class="label">{{ f.label }}</dt>
-            <dd>{{ f.value }}</dd>
-          </div>
-        </dl>
+        <div class="about">
+          <p>
+            I work across backend, web and mobile, often on existing systems where understanding
+            how things already work matters as much as writing the next feature.
+          </p>
+          <p>
+            I like tracing problems across interfaces, APIs, databases and deployment, then
+            finding the simplest useful way to change the system.
+          </p>
+          <p>
+            Outside work, I’m usually following Formula 1 or building something because I want to
+            understand how it works.
+          </p>
+        </div>
       </div>
     </section>
 
-    <section id="contact" class="section contact-section" tabindex="-1" aria-labelledby="contact-heading">
-      <div class="wrap contact-section__grid">
-        <div>
+    <section id="contact" class="section" tabindex="-1" aria-labelledby="contact-heading">
+      <div class="wrap section__head section__head--flush">
+        <div class="section__headline">
           <p class="eyebrow">03 / Contact</p>
           <h2 id="contact-heading" class="section__title">Have something in mind?</h2>
           <p class="contact-lede">
